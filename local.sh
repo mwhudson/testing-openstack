@@ -1,0 +1,32 @@
+NOVA_CONF=/etc/nova/nova.conf
+
+# keep track of the devstack directory
+TOP_DIR=$(cd $(dirname "$0") && pwd)
+
+echo "RUNNING Clark's local.sh!!!!!"
+
+# import common functions
+source $TOP_DIR/functions
+
+# Use openrc + stackrc + localrc for settings
+source $TOP_DIR/stackrc
+
+# import nova functions
+source $TOP_DIR/lib/nova
+
+# Get OpenStack admin auth
+source $TOP_DIR/openrc admin admin
+
+# Create new flavor if not present
+#MI_NAME=m1.vexpress
+#if [[ -z $(nova flavor-list | grep $MI_NAME) ]]; then
+#    nova flavor-create $MI_NAME 7 2000 0 1
+#fi
+
+# create SSH key if not present
+KEYPAIR_NAME=LinaroKey
+if [[ -z $(nova krypair-list | grep $KEYPAIR_NAME) ]]; then
+    nova keypair-add ${KEYPAIR_NAME} > ${TOP_DIR}/${KEYPAIR_NAME}.pem
+    chmod 600 ${TOP_DIR}/${KEYPAIR_NAME}.pem
+fi
+
