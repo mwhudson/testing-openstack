@@ -30,3 +30,7 @@ if [[ -z $(nova krypair-list | grep $KEYPAIR_NAME) ]]; then
     chmod 600 ${TOP_DIR}/${KEYPAIR_NAME}.pem
 fi
 
+# set property of image to run as virt model
+IMAGE_UUID=`glance image-list | awk '/saucy-server.*ami/{print $2}'`
+glance image-update $IMAGE_UUID --property hw_machine_type=virt
+
