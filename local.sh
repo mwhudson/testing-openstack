@@ -25,7 +25,7 @@ source $TOP_DIR/openrc admin admin
 
 # create SSH key if not present
 KEYPAIR_NAME=LinaroKey
-if [[ -z $(nova krypair-list | grep $KEYPAIR_NAME) ]]; then
+if [[ -z $(nova keypair-list | grep $KEYPAIR_NAME) ]]; then
     nova keypair-add ${KEYPAIR_NAME} > ${TOP_DIR}/${KEYPAIR_NAME}.pem
     chmod 600 ${TOP_DIR}/${KEYPAIR_NAME}.pem
 fi
