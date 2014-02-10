@@ -17,5 +17,5 @@ sudo apt-get -y install qemu-system libvirt-bin python-libvirt bridge-utils pm-u
 #wget http://people.linaro.org/~clark.laughlin/ubuntu-cloud-guest-patched/saucy-server-cloudimg-armhf-update.tgz
 #popd
 
-./stack.sh
+./stack.sh | tee install.log
 
