@@ -33,4 +33,4 @@ fi
 # set property of image to run as virt model
 IMAGE_UUID=`glance image-list | awk '/saucy-server.*ami/{print $2}'`
 glance image-update $IMAGE_UUID --property hw_machine_type=virt
-
+glance image-update $IMAGE_UUID --property os_command_line='root=/dev/vda rw rootwait console=ttyAMA0'
