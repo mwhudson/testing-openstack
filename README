@@ -1,1 +1,2 @@
-testing-openstack
+Files to lay on top of a devstack checkout to install and configure it
+for testing
