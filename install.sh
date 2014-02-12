@@ -24,6 +24,7 @@ sudo apt-get -y install qemu-system libvirt-bin python-libvirt bridge-utils pm-u
 git clone git://git.linaro.org/people/clark.laughlin/devstack.git
 cp local.sh ./devstack
 cp local.conf ./devstack
+cp boot-test-image.sh ./devstack
 
 pushd devstack
 ./stack.sh | tee install.log
