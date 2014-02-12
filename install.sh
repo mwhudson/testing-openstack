@@ -17,7 +17,17 @@ sudo apt-key add linarorepo.key
 rm linarorepo.key
 sudo apt-get update
 
+# install some dependencies
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt bridge-utils pm-utils
 
+# get devstack
+git clone git://git.linaro.org/people/clark.laughlin/devstack.git
+cp local.sh ./devstack
+cp local.conf ./devstack
+
+pushd devstack
 ./stack.sh | tee install.log
+popd
+
+
 
