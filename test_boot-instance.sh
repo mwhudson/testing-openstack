@@ -23,10 +23,10 @@ if [[ "${running}" == "RUNNING" ]] ; then
   exit 1
 fi
 
-echo "Booting new instance: image:${image_uuid}, flavor:${flavor_id}"
-
 image_uuid=`glance image-list | awk '/'${DESIRED_IMAGE_PREFIX}'.*ami/{print $2}'`
 flavor_id=`nova flavor-list | awk '/'${DESIRED_FLAVOR}'/{print $2}'`
+
+echo "Booting new instance: image:${image_uuid}, flavor:${flavor_id}"
 
 instance_id=`nova boot ${INSTANCE_NAME} --image "${image_uuid}" --flavor ${flavor_id} | awk '/\| id /{print $4}'`
 
