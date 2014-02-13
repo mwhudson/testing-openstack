@@ -35,7 +35,7 @@ instance_id=`nova boot ${INSTANCE_NAME} --image "${image_uuid}" --flavor ${flavo
 running=NOT_RUNNING
 counter=30
 while [[ "${running}" != "RUNNING" && ${counter} -gt 0 ]] ; do
-   echo "  Waiting for guest instance to report running (${counter})"
+   echo "Waiting for guest instance to report running (${counter})"
    sleep 15
    running=`check_instance_running`
    let counter-=1
@@ -53,7 +53,7 @@ fi
 result=
 counter=30
 while [[ "${result}" == "" && ${counter} -gt 0 ]] ; do
-   echo "  Waiting for guest instance to finish booting (${counter})"
+   echo "Waiting for guest instance to finish booting (${counter})"
    sleep 15
    result=`nova console-log ${INSTANCE_NAME} | grep '^Cloud-init.*finished'`
    let counter-=1
@@ -65,4 +65,11 @@ else
    echo "FAIL: Guest is still not booted"
    exit 1
 fi
+
+# clean up
+
+echo "Deleting guest instance"
+
+nova delete ${INSTANCE_NAME}
+
 
