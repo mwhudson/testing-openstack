@@ -19,9 +19,11 @@ function check_instance_running() {
 
 running=`check_instance_running`
 if [[ "${running}" == "RUNNING" ]] ; then
-  echo "instance already running"
+  echo "FAIL: Instance already running - delete the instance first"
   exit 1
 fi
+
+echo "Booting new instance: image:${image_uuid}, flavor:${flavor_id}"
 
 image_uuid=`glance image-list | awk '/'${DESIRED_IMAGE_PREFIX}'.*ami/{print $2}'`
 flavor_id=`nova flavor-list | awk '/'${DESIRED_FLAVOR}'/{print $2}'`
@@ -33,16 +35,16 @@ instance_id=`nova boot ${INSTANCE_NAME} --image "${image_uuid}" --flavor ${flavo
 running=NOT_RUNNING
 counter=30
 while [[ "${running}" != "RUNNING" && ${counter} -gt 0 ]] ; do
-   echo "waiting for guest instance to report running (${counter})"
+   echo "  Waiting for guest instance to report running (${counter})"
    sleep 15
    running=`check_instance_running`
    let counter-=1
 done
 
 if [[ "${running}" == "RUNNING" ]] ; then
-   echo "guest instance is running"
+   echo "Guest instance is running"
 else
-   echo "guest is still not running"
+   echo "FAIL: Guest is still not running"
    exit 1
 fi
 
@@ -51,16 +53,16 @@ fi
 result=
 counter=30
 while [[ "${result}" == "" && ${counter} -gt 0 ]] ; do
-   echo "waiting for guest instance to finish booting (${counter})"
-   sleep 20
+   echo "  Waiting for guest instance to finish booting (${counter})"
+   sleep 15
    result=`nova console-log ${INSTANCE_NAME} | grep '^Cloud-init.*finished'`
    let counter-=1
 done
 
 if [[ "${running}" == "RUNNING" ]] ; then
-   echo "guest instance has booted"
+   echo "PASS: Guest instance has booted"
 else
-   echo "guest is still not booted"
+   echo "FAIL: Guest is still not booted"
    exit 1
 fi
 
