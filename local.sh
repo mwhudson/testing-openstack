@@ -15,7 +15,7 @@ source $TOP_DIR/lib/nova
 # Get OpenStack admin auth
 source $TOP_DIR/openrc admin admin
 
-# Create new flavor if not present
+# Create new flavor to use for running exercises, if not already present
 MI_NAME=m1.linarotest
 if [[ -z $(nova flavor-list | grep $MI_NAME) ]]; then
     nova flavor-create $MI_NAME 7 512 2 1 
