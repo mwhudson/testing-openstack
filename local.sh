@@ -16,10 +16,10 @@ source $TOP_DIR/lib/nova
 source $TOP_DIR/openrc admin admin
 
 # Create new flavor if not present
-#MI_NAME=m1.vexpress
-#if [[ -z $(nova flavor-list | grep $MI_NAME) ]]; then
-#    nova flavor-create $MI_NAME 7 2000 0 1
-#fi
+MI_NAME=m1.linarotest
+if [[ -z $(nova flavor-list | grep $MI_NAME) ]]; then
+    nova flavor-create $MI_NAME 7 512 2 1 
+fi
 
 # create SSH key if not present
 KEYPAIR_NAME=LinaroKey
