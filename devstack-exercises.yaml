@@ -35,9 +35,9 @@ run:
       - set -e
 
 parse:
-   pattern: "^-+\\s+(?P<test_case_id>[a-z_]+:[a-z_]+)\\s(?P<result>PASS|FAIL|Skip).*"
+   pattern: "^(?P<result>PASS|SKIP|FAILED)\\s(?P<test_case_id>\\S+)$"
    fixupdict:
-      PASS: pass
-      FAIL: fail
-      Skip: skip
+      PASS: PASS
+      FAIL: FAILED
+      Skip: SKIP
 
