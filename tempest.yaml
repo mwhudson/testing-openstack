@@ -1,0 +1,38 @@
+metadata:
+   name: Tempest
+   maintainer:
+      - Clark Laughlin <clark.laughlin@linaro.org>
+   format: "Lava-Test-Shell Test Definition 1.0"
+   version: 1.0
+   description: "Run Devstack exercises"
+   os:
+      - ubuntu
+   devices:
+      - arndale
+      - midway
+   environment:
+      - lava-test-shell
+
+install:
+   steps:
+      - ./install.sh 
+   deps:
+      - git
+      - nmap
+      - bzr
+      - vim
+      - pm-utils
+      - bridge-utils
+      - openssh-server
+run:
+   steps:
+      # run Tempest 
+      - set +e
+      - cd /opt/stack/tempest
+      - ./run_tempest.sh -l -N -t 2>&1 | tee tempest-run.log
+      - cd ${TESTDIR}
+      - set -e
+
+parse:
+   pattern: "^\\s+(?P<test_case_id>\\S+)\\s*(?P<result>OK|FAIL|SKIP).*$"
+
