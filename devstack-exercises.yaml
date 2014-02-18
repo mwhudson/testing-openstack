@@ -1,0 +1,82 @@
+metadata:
+   name: Devstack
+   maintainer:
+      - Clark Laughlin <clark.laughlin@linaro.org>
+   format: "Lava-Test-Shell Test Definition 1.0"
+   version: 1.0
+   description: "Run Devstack exercises"
+   os:
+      - ubuntu
+   devices:
+      - arndale
+      - midway
+   environment:
+      - lava-test-shell
+
+install:
+   steps:
+      # specify the guest image to use
+      - GUEST_URL_PATH=http://people.linaro.org/~clark.laughlin/ubuntu-cloud-guest-patched
+      - GUEST_FILENAME=saucy-server-cloudimg-armhf-update.tgz
+      # store off the current directory and create a temp directory
+      - TESTDIR=`pwd`
+      - TMPDIR=${TESTDIR}/tmp
+      - mkdir -p ${TMPDIR}
+      # write out linaro tools PPA configuration file 
+      - |
+         distro=`lsb_release -s -c`
+         cat > /etc/apt/sources.list.d/linaro-overlay.list << EOF
+         deb http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
+         deb-src http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main         
+         EOF
+      # import repo key
+      - |
+         wget http://repo.linaro.org/ubuntu/linarorepo.key
+         apt-key add linarorepo.key
+         apt-get update
+      # install qemu and libvirt -- flash-kernel must be uninstalled first to prevent a blocking prompt from update-initramfs!
+      - |
+         apt-get -y remove flash-kernel
+         apt-get -y install qemu-system libvirt-bin python-libvirt
+      # update alternative for qemu to be qemu-system-arm
+      - |
+         update-alternatives --install /usr/bin/qemu qemu /usr/bin/qemu-system-arm 0
+         update-alternatives --set qemu /usr/bin/qemu-system-arm
+      #- bzr branch lp:~clark-laughlin/+junk/test-scripts
+      - git clone git://git.linaro.org/people/clark.laughlin/devstack.git
+      # copy configuration files into devstack
+      - |
+         cp local.sh ./devstack
+         cp local.conf ./devstack
+         cp boot-test-image.sh ./devstack
+      # setup devstack environment
+      - |
+         ./workarounds.sh
+         cd devstack
+         ./stack.sh | tee install.log
+         cd ${TESTDIR}
+   deps:
+      - git
+      - nmap
+      - bzr
+      - vim
+      - pm-utils
+      - bridge-utils
+      - openssh-server
+run:
+   steps:
+      # run exercises 
+      - set +e
+      - export  SKIP_VOLUME_ATTACH_TEST=1
+      - cd devstack
+      - ./exercise.sh
+      - cd ${TESTDIR}
+      - set -e
+
+parse:
+   pattern: "^-+\\s+(?P<test_case_id>[a-z_]+:[a-z_]+)\\s(?P<result>PASS|FAIL|Skip).*"
+   fixupdict:
+      PASS: pass
+      FAIL: fail
+      Skip: skip
+
