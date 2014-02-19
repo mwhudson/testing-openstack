@@ -1,5 +1,5 @@
 metadata:
-   name: Devstack exercises
+   name: devstack-exercises
    maintainer:
       - Clark Laughlin <clark.laughlin@linaro.org>
    format: "Lava-Test-Shell Test Definition 1.0"
@@ -28,7 +28,7 @@ run:
    steps:
       # run exercises 
       - set +e
-      - export  SKIP_VOLUME_ATTACH_TEST=1
+      - export SKIP_VOLUME_ATTACH_TEST=1
       - cd devstack
       - ./exercise.sh
       - cd ${TESTDIR}
