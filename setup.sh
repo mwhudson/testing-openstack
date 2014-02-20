@@ -37,6 +37,7 @@ cp boot-test-image.sh ./devstack
 ./devstack/tools/create-stack-user.sh
 
 # setup devstack
+chown -R stack:stack ./devstack
 cd ./devstack
 export DEVSTACK_DIR=`pwd`
 su --login --command "cd ${DEVSTACK_DIR} ; ./stack.sh | tee install.log" --shell "/bin/bash" --preserve-environment stack
