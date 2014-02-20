@@ -37,7 +37,7 @@ run:
 parse:
    pattern: "^(?P<result>PASS|SKIP|FAILED)\\s(?P<test_case_id>\\S+)$"
    fixupdict:
-      PASS: PASS
-      FAILED: FAIL
-      SKIP: SKIP
+      PASS: pass
+      FAILED: fail
+      SKIP: skip
 
