@@ -34,7 +34,7 @@ cp boot-test-image.sh ./devstack
 ./workarounds.sh
 
 # setup devstack
- devstack
+cd ./devstack
 ./stack.sh | tee install.log
 cd ${TESTDIR}
 
