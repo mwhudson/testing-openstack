@@ -18,6 +18,9 @@ sudo apt-key add linarorepo.key
 rm linarorepo.key
 sudo apt-get update
 
+# flash-kernel must be uninstalled first to prevent a blocking prompt from update-initramfs!
+sudo apt-get -y remove flash-kernel
+
 # install some dependencies
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt
 
