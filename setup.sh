@@ -33,8 +33,11 @@ cp boot-test-image.sh ./devstack
 # configure workarounds for linaro images
 ./workarounds.sh
 
+# create stack user
+./devstack/tools/create-stack-user.sh
+
 # setup devstack
 cd ./devstack
-./stack.sh | tee install.log
+su --login --command "./stack.sh | tee install.log" --shell "/bin/bash" stack
 cd ${TESTDIR}
 
