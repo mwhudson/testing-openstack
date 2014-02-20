@@ -30,7 +30,7 @@ run:
       - set +e
       - export SKIP_VOLUME_ATTACH_TEST=1
       - cd devstack
-      - ./exercise.sh
+      #- ./exercise.sh
       - cd ${TESTDIR}
       - set -e
 
