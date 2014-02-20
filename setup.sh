@@ -38,6 +38,7 @@ cp boot-test-image.sh ./devstack
 
 # setup devstack
 cd ./devstack
-su --login --command "./stack.sh | tee install.log" --shell "/bin/bash" stack
+export DEVSTACK_DIR=`pwd`
+su --login --command "cd ${DEVSTACK_DIR} ; ./stack.sh | tee install.log" --shell "/bin/bash" --preserve-environment stack
 cd ${TESTDIR}
 
