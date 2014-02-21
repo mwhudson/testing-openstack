@@ -9,4 +9,4 @@ sudo apt-get -y remove python-keyring
 sudo apt-get -y autoremove
 
 # For some reason, mysql on Linaro images does not allow root login correctly
-./fix-mysql-login-failures.sh
+bash -x ./fix-mysql-login-failures.sh

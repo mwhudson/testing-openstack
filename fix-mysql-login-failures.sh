@@ -1,9 +1,7 @@
 #!/bin/bash
 
-mysqldbin=`which mysqld`
-
 sudo service mysql stop
-sudo ${mysqldbin} --skip-grant-tables --skip-networking &
+sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking &
 
 mysql -u root <<EOF
 USE mysql;
