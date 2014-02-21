@@ -37,10 +37,14 @@ chmod 777 ${TMPDIR}
 # create stack user
 ./devstack/tools/create-stack-user.sh
 
-# setup devstack
+# setup devstack (run as 'stack' user)
 chown -R stack:stack ./devstack
 cd ./devstack
-export DEVSTACK_DIR=`pwd`
-su --login --command "cd ${DEVSTACK_DIR} ; ./stack.sh | tee install.log" --shell "/bin/bash" --preserve-environment stack
+export DEVSTACK_ROOT=`pwd`
+su --login --shell "/bin/bash" stack <<EOF
+env
+cd ${DEVSTACK_ROOT}
+./stack.sh | tee install.log
+EOF
 cd ${TESTDIR}
 

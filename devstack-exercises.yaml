@@ -29,9 +29,12 @@ run:
       # run exercises 
       - set +e
       - export SKIP_VOLUME_ATTACH_TEST=1
-      - cd devstack
-      - export DEVSTACK_DIR=`pwd`
-      - su --login --command "cd ${DEVSTACK_DIR} ; ./exercise.sh" --shell "/bin/bash" --preserve-environment stack
+      - |
+         su --login --shell "/bin/bash" stack <<EOF
+         export SKIP_VOLUME_ATTACH_TEST=1
+         cd ${DEVSTACK_ROOT}
+         ./exercise.sh
+         EOF
       - cd ${TESTDIR}
       - set -e
 
