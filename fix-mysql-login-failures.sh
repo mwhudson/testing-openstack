@@ -1,7 +1,9 @@
 #!/bin/bash
 
+mysqldbin=`which mysqld`
+
 sudo service mysql stop
-sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking &
+sudo ${mysqldbin} --skip-grant-tables --skip-networking &
 
 mysql -u root <<EOF
 USE mysql;
@@ -10,5 +12,6 @@ WHERE Host = 'localhost' AND User = 'root';
 FLUSH PRIVILEGES;
 EOF
 
-sudo service mysql restart
+sudo pkill mysqld
+sudo service mysql start
 
