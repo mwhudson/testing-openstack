@@ -29,6 +29,8 @@ run:
       # run exercises 
       - set +e
       - export SKIP_VOLUME_ATTACH_TEST=1
+      - cd ./devstack
+      - export DEVSTACK_ROOT=`pwd`
       - |
          su --login --shell "/bin/bash" stack <<EOF
          export SKIP_VOLUME_ATTACH_TEST=1
