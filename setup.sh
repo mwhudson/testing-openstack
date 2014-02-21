@@ -32,7 +32,8 @@ cp boot-test-image.sh ./devstack
 
 # configure workarounds for linaro images
 ./workarounds.sh
-mysql_upgrade
+
+# the temp directory created by LAVA needs to allow write access to everyone -- not just root
 chmod 777 ${TMPDIR}
 
 # create stack user
