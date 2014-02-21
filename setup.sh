@@ -32,6 +32,7 @@ cp boot-test-image.sh ./devstack
 
 # configure workarounds for linaro images
 ./workarounds.sh
+mysql_upgrade
 chmod 777 ${TMPDIR}
 
 # create stack user
