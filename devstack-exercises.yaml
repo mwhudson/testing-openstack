@@ -15,7 +15,7 @@ metadata:
 
 install:
    steps:
-      - ./setup.sh
+      - bash -x ./setup.sh
    deps:
       - git
       - nmap
