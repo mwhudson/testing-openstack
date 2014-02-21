@@ -30,7 +30,8 @@ run:
       - set +e
       - export SKIP_VOLUME_ATTACH_TEST=1
       - cd devstack
-      #- ./exercise.sh
+      - export DEVSTACK_DIR=`pwd`
+      - su --login --command "cd ${DEVSTACK_DIR} ; ./exercise.sh" --shell "/bin/bash" --preserve-environment stack
       - cd ${TESTDIR}
       - set -e
 
