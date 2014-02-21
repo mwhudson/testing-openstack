@@ -32,6 +32,7 @@ cp boot-test-image.sh ./devstack
 
 # configure workarounds for linaro images
 ./workarounds.sh
+chmod 777 ${TMPDIR}
 
 # create stack user
 ./devstack/tools/create-stack-user.sh
