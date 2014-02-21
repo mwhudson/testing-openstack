@@ -22,7 +22,10 @@ sudo apt-get update
 sudo apt-get -y remove flash-kernel
 
 # install some dependencies
-sudo apt-get -y install qemu-system libvirt-bin python-libvirt
+sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
+
+# set the time using NTP -- seems to be off on midway
+sudo sudo ntpdate ntp.ubuntu.com
 
 # get devstack
 git clone git://git.linaro.org/people/clark.laughlin/devstack.git
