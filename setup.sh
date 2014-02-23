@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# install lsb_release - it's on Linaro nano images :(
+sudo apt-get install lsb-release
+
 # store off the current directory and create a temp directory
 export TESTDIR=`pwd`
 export TMPDIR=${TESTDIR}/tmp
