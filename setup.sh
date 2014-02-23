@@ -5,6 +5,9 @@ export TESTDIR=`pwd`
 export TMPDIR=${TESTDIR}/tmp
 mkdir -p ${TMPDIR}
 
+echo "CPU Information:"
+lscpu
+
 # write out Linaro tools PPA configuration file
 distro=`lsb_release -s -c`
 sudo cat > /etc/apt/sources.list.d/linaro-overlay.list << EOF
