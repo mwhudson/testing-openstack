@@ -36,7 +36,7 @@ run:
          su --login --shell "/bin/bash" stack <<EOF
          export SKIP_VOLUME_ATTACH_TEST=1
          cd ${DEVSTACK_ROOT}
-         ./display-openstack-info.sh
+         bash -x ./display-openstack-info.sh
          ./exercise.sh
          EOF
       - cd ${TESTDIR}
