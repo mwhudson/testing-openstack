@@ -37,6 +37,7 @@ sudo sudo ntpdate ntp.ubuntu.com
 git clone git://git.linaro.org/people/clark.laughlin/devstack.git
 cp local.sh ./devstack
 cp local.conf ./devstack
+cp display-openstack-info.sh ./devstack
 cp boot-test-image.sh ./devstack
 
 # configure workarounds for linaro images
