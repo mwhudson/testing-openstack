@@ -24,10 +24,10 @@ fi
 
 # create SSH key if not present
 echo "Create Linaro SSH keypair"
-KEYPAIR_NAME=LinaroKey
+KEY_NAME=LinaroKey
+KEY_FILE=`ls *.pub`
 if [[ -z $(nova keypair-list | grep $KEYPAIR_NAME) ]]; then
-    nova keypair-add ${KEYPAIR_NAME} > ${TOP_DIR}/${KEYPAIR_NAME}.pem
-    chmod 600 ${TOP_DIR}/${KEYPAIR_NAME}.pem
+    nova keypair-add --pub_key ${KEY_FILE} ${KEY_NAME}
 fi
 
 # set property of image to run as virt model

@@ -39,6 +39,7 @@ cp local.sh ./devstack
 cp local.conf ./devstack
 cp display-openstack-info.sh ./devstack
 cp boot-test-image.sh ./devstack
+cp keypair_rsa.pub ./devstack
 
 # configure workarounds for linaro images
 ./workarounds.sh
