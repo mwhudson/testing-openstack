@@ -55,7 +55,7 @@ export DEVSTACK_ROOT=`pwd`
 su --login --shell "/bin/bash" stack <<EOF
 env
 cd ${DEVSTACK_ROOT}
-./stack.sh | tee install.log
+./stack.sh
 EOF
 cd ${TESTDIR}
 
