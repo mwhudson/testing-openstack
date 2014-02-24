@@ -31,10 +31,12 @@ run:
       - export SKIP_VOLUME_ATTACH_TEST=1
       - cd ./devstack
       - export DEVSTACK_ROOT=`pwd`
+      # run everything as the 'stack' user!!
       - |
          su --login --shell "/bin/bash" stack <<EOF
          export SKIP_VOLUME_ATTACH_TEST=1
          cd ${DEVSTACK_ROOT}
+         ./display-openstack-info.sh
          ./exercise.sh
          EOF
       - cd ${TESTDIR}
