@@ -52,6 +52,7 @@ chmod 777 ${TMPDIR}
 chown -R stack:stack ./devstack
 cd ./devstack
 export DEVSTACK_ROOT=`pwd`
+export DISABLE_PROGRESS_SPINNER=1
 su --login --shell "/bin/bash" stack <<EOF
 env
 cd ${DEVSTACK_ROOT}
