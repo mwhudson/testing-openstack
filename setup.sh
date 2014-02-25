@@ -28,7 +28,7 @@ sudo apt-get update
 sudo apt-get -y remove flash-kernel
 
 # install some dependencies
-sudo apt-get -y install vde2
+sudo apt-get -y install qemu-linaro-keymaps
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
 
 # set the time using NTP -- seems to be off on midway
