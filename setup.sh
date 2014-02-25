@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# install lsb_release - it's on Linaro nano images :(
+# install lsb_release - it's not on Linaro nano images :(
 sudo apt-get -y install lsb-release
 
 # store off the current directory and create a temp directory
@@ -31,7 +31,7 @@ sudo apt-get -y remove flash-kernel
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
 
 # set the time using NTP -- seems to be off on midway
-sudo sudo ntpdate ntp.ubuntu.com
+sudo ntpdate ntp.ubuntu.com
 
 # get devstack
 git clone git://git.linaro.org/people/clark.laughlin/devstack.git
