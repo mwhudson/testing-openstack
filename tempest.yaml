@@ -19,7 +19,6 @@ install:
    deps:
       - git
       - nmap
-      - bzr
       - vim
       - pm-utils
       - bridge-utils
