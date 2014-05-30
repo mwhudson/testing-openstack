@@ -11,21 +11,21 @@ mkdir -p ${TMPDIR}
 echo "CPU Information:"
 lscpu
 
-# write out Linaro tools PPA configuration file
-distro=`lsb_release -s -c`
-sudo cat > /etc/apt/sources.list.d/linaro-overlay.list << EOF
-deb http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
-deb-src http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
-EOF
+### # write out Linaro tools PPA configuration file
+### distro=`lsb_release -s -c`
+### sudo cat > /etc/apt/sources.list.d/linaro-overlay.list << EOF
+### deb http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
+### deb-src http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
+### EOF
+### 
+### # import repo key
+### wget http://repo.linaro.org/ubuntu/linarorepo.key
+### sudo apt-key add linarorepo.key
+### rm linarorepo.key
+### sudo apt-get update
 
-# import repo key
-wget http://repo.linaro.org/ubuntu/linarorepo.key
-sudo apt-key add linarorepo.key
-rm linarorepo.key
-sudo apt-get update
-
-# flash-kernel must be uninstalled first to prevent a blocking prompt from update-initramfs!
-sudo apt-get -y remove flash-kernel
+### # flash-kernel must be uninstalled first to prevent a blocking prompt from update-initramfs!
+### sudo apt-get -y remove flash-kernel
 
 # install some dependencies
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
@@ -34,7 +34,9 @@ sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
 sudo ntpdate ntp.ubuntu.com
 
 # get devstack
-git clone git://git.linaro.org/people/clark.laughlin/devstack.git
+### git clone git://git.linaro.org/people/clark.laughlin/devstack.git
+git clone git://github.com/mwhudson/devstack.git -b arm64-trusty-icehouse
+
 cp local.sh ./devstack
 cp local.conf ./devstack
 cp display-openstack-info.sh ./devstack
@@ -42,7 +44,7 @@ cp boot-test-image.sh ./devstack
 cp keypair_rsa.pub ./devstack
 
 # configure workarounds for linaro images
-./workarounds.sh
+### ./workarounds.sh
 
 # the temp directory created by LAVA needs to allow write access to everyone -- not just root
 chmod 777 ${TMPDIR}
