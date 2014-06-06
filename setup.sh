@@ -27,8 +27,6 @@ lscpu
 ### # flash-kernel must be uninstalled first to prevent a blocking prompt from update-initramfs!
 ### sudo apt-get -y remove flash-kernel
 
-apt-get install -y sudo
-
 # install some dependencies
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
 
@@ -47,11 +45,6 @@ cp keypair_rsa.pub ./devstack
 
 # configure workarounds for linaro images
 ### ./workarounds.sh
-sudo apt-get -y remove --purge mysql-server
-mysql_data_dir=/var/lib/mysql
-if [ -d "${mysql_data_dir}" ]; then
-   sudo rm -rf ${mysql_data_dir}
-fi
 
 # the temp directory created by LAVA needs to allow write access to everyone -- not just root
 chmod 777 ${TMPDIR}
