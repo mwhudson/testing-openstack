@@ -58,6 +58,7 @@ cd ./devstack
 export DEVSTACK_ROOT=`pwd`
 su --login --shell "/bin/bash" stack <<EOF
 env
+export PATH=/sbin:/usr/sbin:$PATH
 cd ${DEVSTACK_ROOT}
 ./stack.sh
 EOF
