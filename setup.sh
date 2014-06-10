@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# install lsb_release - it's not on Linaro nano images :(
-sudo apt-get -y install lsb-release
-
 # store off the current directory and create a temp directory
 export TESTDIR=`pwd`
 export TMPDIR=${TESTDIR}/tmp
@@ -10,22 +7,6 @@ mkdir -p ${TMPDIR}
 
 echo "CPU Information:"
 lscpu
-
-### # write out Linaro tools PPA configuration file
-### distro=`lsb_release -s -c`
-### sudo cat > /etc/apt/sources.list.d/linaro-overlay.list << EOF
-### deb http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
-### deb-src http://repo.linaro.org/ubuntu/linaro-overlay ${distro} main
-### EOF
-### 
-### # import repo key
-### wget http://repo.linaro.org/ubuntu/linarorepo.key
-### sudo apt-key add linarorepo.key
-### rm linarorepo.key
-### sudo apt-get update
-
-### # flash-kernel must be uninstalled first to prevent a blocking prompt from update-initramfs!
-### sudo apt-get -y remove flash-kernel
 
 # install some dependencies
 sudo apt-get -y install qemu-system libvirt-bin python-libvirt ntpdate
@@ -40,11 +21,7 @@ git clone git://github.com/mwhudson/devstack.git -b arm64-trusty-icehouse
 cp local.sh ./devstack
 cp local.conf ./devstack
 cp display-openstack-info.sh ./devstack
-cp boot-test-image.sh ./devstack
 cp keypair_rsa.pub ./devstack
-
-# configure workarounds for linaro images
-### ./workarounds.sh
 
 sudo modprobe nbd
 
@@ -59,10 +36,9 @@ chown -R stack:stack ./devstack
 cd ./devstack
 export DEVSTACK_ROOT=`pwd`
 su --login --shell "/bin/bash" stack <<EOF
-env
 export PATH=/sbin:/usr/sbin:$PATH
+env
 cd ${DEVSTACK_ROOT}
 ./stack.sh
 EOF
 cd ${TESTDIR}
-
