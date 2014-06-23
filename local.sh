@@ -3,7 +3,6 @@ NOVA_CONF=/etc/nova/nova.conf
 
 # keep track of the devstack directory
 TOP_DIR=$(cd $(dirname "$0") && pwd)
-
 # import common functions
 source $TOP_DIR/functions
 
@@ -20,7 +19,7 @@ source $TOP_DIR/openrc admin admin
 echo "Create Linaro SSH keypair"
 KEY_NAME=LinaroKey
 KEY_FILE=`ls *.pub`
-if [[ -z $(nova keypair-list | grep $KEYPAIR_NAME) ]]; then
+if [[ -z $(nova keypair-list | grep $KEY_NAME) ]]; then
     nova keypair-add --pub_key ${KEY_FILE} ${KEY_NAME}
 fi
 
