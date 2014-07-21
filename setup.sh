@@ -28,14 +28,10 @@ sudo modprobe nbd
 # the temp directory created by LAVA needs to allow write access to everyone -- not just root
 chmod 777 ${TMPDIR}
 
-# create stack user
-./devstack/tools/create-stack-user.sh
-
-# setup devstack (run as 'stack' user)
-chown -R stack:stack ./devstack
+chown -R ubuntu:ubuntu ./devstack
 cd ./devstack
 export DEVSTACK_ROOT=`pwd`
-su --login --shell "/bin/bash" stack <<EOF
+su --login --shell "/bin/bash" ubuntu <<EOF
 export PATH=/sbin:/usr/sbin:$PATH
 env
 cd ${DEVSTACK_ROOT}
